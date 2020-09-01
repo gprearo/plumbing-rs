@@ -1,3 +1,4 @@
-pub trait Filter<T> {
-    fn filter(&self, data: Vec<T>) -> Vec<T>;
+use std::iter::FromIterator;
+pub trait Filter<TCollection, TData> where TCollection : FromIterator<TData>{
+    fn filter(&self, data: TCollection) -> TCollection;
 }

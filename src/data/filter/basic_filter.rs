@@ -1,5 +1,6 @@
 use crate::data::filter::condition::Condition;
 use crate::data::filter::Filter;
+use std::iter::{FromIterator, IntoIterator};
 pub struct BasicFilter<T> {
     condition: Box<dyn Condition<T>>
 }
@@ -10,16 +11,9 @@ impl<T> BasicFilter<T> {
     }
 }
 
-impl<T> Filter<T> for BasicFilter<T> {
-    fn filter(&self, data: Vec<T>) -> Vec<T> {
-        let mut filtered = Vec::new();
-        for item in data {
-            let data = item;
-            if self.condition.is_match(&data){
-                filtered.push(data);
-            }
-        }
-
-        return filtered;
+impl<TCollection, T> Filter<TCollection, T> for BasicFilter<T> 
+    where TCollection: FromIterator<T> + IntoIterator<Item = T> {
+    fn filter(&self, data: TCollection) -> TCollection {
+        return data.into_iter().filter(| item: &T | self.condition.is_match(item) ).collect();
     }
 }
