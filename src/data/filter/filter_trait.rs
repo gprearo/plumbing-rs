@@ -1,4 +1,3 @@
-use std::iter::FromIterator;
-pub trait Filter<TCollection, TData> where TCollection : FromIterator<TData>{
+pub trait Filter<TCollection, TData> {
     fn filter(&self, data: TCollection) -> TCollection;
 }
