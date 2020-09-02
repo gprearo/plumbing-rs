@@ -6,9 +6,9 @@ mod conditions;
 use conditions::{TrueCondition, FalseCondition};
 
 #[test]
-fn i64_filter_test() {
+fn basic_filter_test() {
     let test_vec: Vec<i64> = Vec::from([2, 3, 4, 5, 6, 7]);
-    let filter: Box<dyn Filter<Vec<i64>, i64>> = Box::new(BasicFilter::new(GreaterThanCondition::new(&3)));
+    let filter: Box<dyn Filter<Vec<i64>, i64>> = BasicFilter::boxed_new(GreaterThanCondition::new(&3));
     let after_filter = filter.filter(test_vec);
     assert_eq!(after_filter[0], 4);
     assert_eq!(after_filter[1], 5);
@@ -17,8 +17,8 @@ fn i64_filter_test() {
 }
 #[test]
 fn or_condition_test_should_be_true() {
-    let cond1: Box<dyn Condition<i64>> = Box::new(TrueCondition::new());
-    let cond2: Box<dyn Condition<i64>> = Box::new(FalseCondition::new());
+    let cond1: Box<dyn Condition<i64>> = TrueCondition::boxed_new();
+    let cond2: Box<dyn Condition<i64>> = FalseCondition::boxed_new();
     let cond_vec = Vec::from([cond1, cond2]);
     let condition = OrCondition::new(&cond_vec);
 
@@ -26,8 +26,8 @@ fn or_condition_test_should_be_true() {
 }
 #[test]
 fn or_condition_test_should_be_false() {
-    let cond1: Box<dyn Condition<i64>> = Box::new(FalseCondition::new());
-    let cond2: Box<dyn Condition<i64>> = Box::new(FalseCondition::new());
+    let cond1: Box<dyn Condition<i64>> = FalseCondition::boxed_new();
+    let cond2: Box<dyn Condition<i64>> = FalseCondition::boxed_new();
     let cond_vec = Vec::from([cond1, cond2]);
     let condition = OrCondition::new(&cond_vec);
 
@@ -36,8 +36,8 @@ fn or_condition_test_should_be_false() {
 
 #[test]
 fn and_condition_test_should_be_false() {
-    let cond1: Box<dyn Condition<i64>> = Box::new(TrueCondition::new());
-    let cond2: Box<dyn Condition<i64>> = Box::new(FalseCondition::new());
+    let cond1: Box<dyn Condition<i64>> = TrueCondition::boxed_new();
+    let cond2: Box<dyn Condition<i64>> = FalseCondition::boxed_new();
     let cond_vec = Vec::from([cond1, cond2]);
     let condition = AndCondition::new(&cond_vec);
 
@@ -45,8 +45,8 @@ fn and_condition_test_should_be_false() {
 }
 #[test]
 fn and_condition_test_should_be_true() {
-    let cond1: Box<dyn Condition<i64>> = Box::new(TrueCondition::new());
-    let cond2: Box<dyn Condition<i64>> = Box::new(TrueCondition::new());
+    let cond1: Box<dyn Condition<i64>> = TrueCondition::boxed_new();
+    let cond2: Box<dyn Condition<i64>> = TrueCondition::boxed_new();
     let cond_vec = Vec::from([cond1, cond2]);
     let condition = AndCondition::new(&cond_vec);
 

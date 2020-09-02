@@ -6,6 +6,10 @@ impl FalseCondition {
     pub fn new() -> FalseCondition{
         return FalseCondition{};
     }
+
+    pub fn boxed_new() -> Box<FalseCondition>{
+        return Box::new(FalseCondition::new());
+    }
 }
 
 impl<T> Condition<T> for FalseCondition {

@@ -9,6 +9,10 @@ impl<'a, T> LessThanCondition<'a, T>{
     pub fn new(value: &'a T) -> LessThanCondition<'a, T>{
         return LessThanCondition{value};
     }
+
+    pub fn boxed_new(value: &'a T) -> Box<LessThanCondition<'a, T>>{
+        return Box::new(LessThanCondition::new(value));
+    }
 }
 
 impl<'a, T> Condition<T> for LessThanCondition<'a, T> 

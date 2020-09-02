@@ -9,6 +9,10 @@ impl<'a, T> GreaterThanCondition<'a, T>{
     pub fn new(value: &'a T) -> GreaterThanCondition<'a, T>{
         return GreaterThanCondition{value};
     }
+
+    pub fn boxed_new(value: &'a T) -> Box<GreaterThanCondition<'a, T>>{
+        return Box::new(GreaterThanCondition::new(value));
+    }
 }
 
 impl<'a, T> Condition<T> for GreaterThanCondition<'a, T> 

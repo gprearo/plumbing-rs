@@ -9,6 +9,10 @@ impl<'a, T> BasicFilter<'a, T> {
     pub fn new(condition: impl Condition<T> + 'a) -> BasicFilter<'a, T> {
         return BasicFilter {condition: Box::new(condition)};
     }
+
+    pub fn boxed_new(condition: impl Condition<T> + 'a) -> Box<BasicFilter<'a, T>> {
+        return Box::new(BasicFilter {condition: Box::new(condition)});
+    }
 }
 
 impl<'a, TCollection, T> Filter<TCollection, T> for BasicFilter<'a, T> 
