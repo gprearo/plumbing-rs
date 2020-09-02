@@ -1,23 +1,17 @@
 use crate::data::condition::Condition;
 
-pub struct AndCondition<T> {
-    conditions: Vec<Box<dyn Condition<T>>>
+pub struct AndCondition<'a, T> {
+    conditions: &'a Vec<Box<dyn Condition<T>>>
 }
 
-impl<T> AndCondition<T> {
-    pub fn new(conditions: Vec<Box<dyn Condition<T>>>) -> AndCondition<T> {
+impl<'a, T> AndCondition<'a, T> {
+    pub fn new(conditions: &'a Vec<Box<dyn Condition<T>>>) -> AndCondition<T> {
         return AndCondition{conditions};
     }
 }
 
-impl<T> Condition<T> for AndCondition<T> {
+impl<'a, T> Condition<T> for AndCondition<'a, T> {
     fn is_match(&self, data: &T) -> bool {
-        for condition in &self.conditions{
-            if !condition.is_match(data) {
-                return false
-            }
-        }
-
-        return true;
+        return !self.conditions.into_iter().any(|cond| !cond.is_match(data));
     }
 }
