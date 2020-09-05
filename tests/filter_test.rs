@@ -1,7 +1,11 @@
 #[cfg(test)]
+use std::io::prelude::*;
+use std::fs::File;
+use std::fs;
 use std::collections::HashSet;
 use plumbing::data::filter::{Filter, BasicFilter};
 use plumbing::data::condition::{Condition, GreaterThanCondition, OrCondition, AndCondition, IteratorContainsCondition, HashSetContainsCondition};
+use plumbing::data::provider::{TextFileProvider, DataProvider};
 
 mod conditions;
 use conditions::{TrueCondition, FalseCondition};
@@ -92,4 +96,18 @@ fn hashset_contains_test_should_be_false() {
     let condition = HashSetContainsCondition::new(&cond_vec);
 
     assert_eq!(condition.is_match(&20), false);
+}
+
+#[test]
+fn text_file_provider_test() {
+    let path = &String::from("text_file_provider_teste_data");
+    let mut file = File::create(path).unwrap();
+    let data = "Test data";
+    let _ = file.write_all(data.as_bytes());
+
+    let text_provider = TextFileProvider::new(&path); 
+    let provided = text_provider.get_data();    
+    assert_eq!(provided, data);
+
+    let _ = fs::remove_file(path);
 }
