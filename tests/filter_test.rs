@@ -1,6 +1,7 @@
 #[cfg(test)]
+use std::collections::HashSet;
 use plumbing::data::filter::{Filter, BasicFilter};
-use plumbing::data::condition::{Condition, GreaterThanCondition, OrCondition, AndCondition, IteratorContainsCondition};
+use plumbing::data::condition::{Condition, GreaterThanCondition, OrCondition, AndCondition, IteratorContainsCondition, HashSetContainsCondition};
 
 mod conditions;
 use conditions::{TrueCondition, FalseCondition};
@@ -54,7 +55,7 @@ fn and_condition_test_should_be_true() {
 }
 
 #[test]
-fn contains_condition_test_should_be_true() {
+fn iter_contains_test_should_be_true() {
     let cond_vec = Vec::from([1, 2, 3, 4]);
     let condition = IteratorContainsCondition::new(&cond_vec);
 
@@ -62,9 +63,33 @@ fn contains_condition_test_should_be_true() {
 }
 
 #[test]
-fn contains_condition_test_should_be_false() {
+fn iter_contains_test_should_be_false() {
     let cond_vec = Vec::from([1, 2, 3, 4]);
     let condition = IteratorContainsCondition::new(&cond_vec);
 
     assert_eq!(condition.is_match(&12), false);
+}
+
+#[test]
+fn hashset_contains_test_should_be_true() {
+    let mut cond_vec = HashSet::new();
+    cond_vec.insert(1);
+    cond_vec.insert(2);
+    cond_vec.insert(3);
+    cond_vec.insert(4);
+    let condition = HashSetContainsCondition::new(&cond_vec);
+
+    assert_eq!(condition.is_match(&3), true);
+}
+
+#[test]
+fn hashset_contains_test_should_be_false() {
+    let mut cond_vec = HashSet::new();
+    cond_vec.insert(1);
+    cond_vec.insert(2);
+    cond_vec.insert(3);
+    cond_vec.insert(4);
+    let condition = HashSetContainsCondition::new(&cond_vec);
+
+    assert_eq!(condition.is_match(&20), false);
 }
