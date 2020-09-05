@@ -1,17 +1,11 @@
 #[cfg(test)]
-use std::io::prelude::*;
-use std::fs::File;
-use std::fs;
 use std::collections::HashSet;
 use plumbing::data::filter::{Filter, BasicFilter};
 use plumbing::data::condition::{Condition, GreaterThanCondition, OrCondition, AndCondition, IteratorContainsCondition, HashSetContainsCondition};
-use plumbing::data::provider::{TextFileProvider, DataProvider};
-
-mod conditions;
-use conditions::{TrueCondition, FalseCondition};
+use super::{TrueCondition, FalseCondition};
 
 #[test]
-fn basic_filter_test() {
+pub fn basic_filter_test() {
     let test_vec: Vec<i64> = Vec::from([2, 3, 4, 5, 6, 7]);
     let filter: Box<dyn Filter<Vec<i64>, i64>> = BasicFilter::boxed_new(GreaterThanCondition::new(&3));
     let after_filter = filter.filter(test_vec);
@@ -21,7 +15,7 @@ fn basic_filter_test() {
     assert_eq!(after_filter[3], 7);
 }
 #[test]
-fn or_condition_test_should_be_true() {
+pub fn or_condition_test_should_be_true() {
     let cond1: Box<dyn Condition<i64>> = TrueCondition::boxed_new();
     let cond2: Box<dyn Condition<i64>> = FalseCondition::boxed_new();
     let cond_vec = Vec::from([cond1, cond2]);
@@ -30,7 +24,7 @@ fn or_condition_test_should_be_true() {
     assert_eq!(condition.is_match(&3), true);
 }
 #[test]
-fn or_condition_test_should_be_false() {
+pub fn or_condition_test_should_be_false() {
     let cond1: Box<dyn Condition<i64>> = FalseCondition::boxed_new();
     let cond2: Box<dyn Condition<i64>> = FalseCondition::boxed_new();
     let cond_vec = Vec::from([cond1, cond2]);
@@ -40,7 +34,7 @@ fn or_condition_test_should_be_false() {
 }
 
 #[test]
-fn and_condition_test_should_be_false() {
+pub fn and_condition_test_should_be_false() {
     let cond1: Box<dyn Condition<i64>> = TrueCondition::boxed_new();
     let cond2: Box<dyn Condition<i64>> = FalseCondition::boxed_new();
     let cond_vec = Vec::from([cond1, cond2]);
@@ -49,7 +43,7 @@ fn and_condition_test_should_be_false() {
     assert_eq!(condition.is_match(&3), false);
 }
 #[test]
-fn and_condition_test_should_be_true() {
+pub fn and_condition_test_should_be_true() {
     let cond1: Box<dyn Condition<i64>> = TrueCondition::boxed_new();
     let cond2: Box<dyn Condition<i64>> = TrueCondition::boxed_new();
     let cond_vec = Vec::from([cond1, cond2]);
@@ -59,7 +53,7 @@ fn and_condition_test_should_be_true() {
 }
 
 #[test]
-fn iter_contains_test_should_be_true() {
+pub fn iter_contains_test_should_be_true() {
     let cond_vec = Vec::from([1, 2, 3, 4]);
     let condition = IteratorContainsCondition::new(&cond_vec);
 
@@ -67,7 +61,7 @@ fn iter_contains_test_should_be_true() {
 }
 
 #[test]
-fn iter_contains_test_should_be_false() {
+pub fn iter_contains_test_should_be_false() {
     let cond_vec = Vec::from([1, 2, 3, 4]);
     let condition = IteratorContainsCondition::new(&cond_vec);
 
@@ -75,7 +69,7 @@ fn iter_contains_test_should_be_false() {
 }
 
 #[test]
-fn hashset_contains_test_should_be_true() {
+pub fn hashset_contains_test_should_be_true() {
     let mut cond_vec = HashSet::new();
     cond_vec.insert(1);
     cond_vec.insert(2);
@@ -87,7 +81,7 @@ fn hashset_contains_test_should_be_true() {
 }
 
 #[test]
-fn hashset_contains_test_should_be_false() {
+pub fn hashset_contains_test_should_be_false() {
     let mut cond_vec = HashSet::new();
     cond_vec.insert(1);
     cond_vec.insert(2);
@@ -96,18 +90,4 @@ fn hashset_contains_test_should_be_false() {
     let condition = HashSetContainsCondition::new(&cond_vec);
 
     assert_eq!(condition.is_match(&20), false);
-}
-
-#[test]
-fn text_file_provider_test() {
-    let path = &String::from("text_file_provider_teste_data");
-    let mut file = File::create(path).unwrap();
-    let data = "Test data";
-    let _ = file.write_all(data.as_bytes());
-
-    let text_provider = TextFileProvider::new(&path); 
-    let provided = text_provider.get_data();    
-    assert_eq!(provided, data);
-
-    let _ = fs::remove_file(path);
 }
