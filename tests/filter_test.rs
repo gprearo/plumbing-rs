@@ -1,6 +1,6 @@
 #[cfg(test)]
 use plumbing::data::filter::{Filter, BasicFilter};
-use plumbing::data::condition::{Condition, GreaterThanCondition, OrCondition, AndCondition, ContainsCondition};
+use plumbing::data::condition::{Condition, GreaterThanCondition, OrCondition, AndCondition, IteratorContainsCondition};
 
 mod conditions;
 use conditions::{TrueCondition, FalseCondition};
@@ -56,7 +56,7 @@ fn and_condition_test_should_be_true() {
 #[test]
 fn contains_condition_test_should_be_true() {
     let cond_vec = Vec::from([1, 2, 3, 4]);
-    let condition = ContainsCondition::new(&cond_vec);
+    let condition = IteratorContainsCondition::new(&cond_vec);
 
     assert_eq!(condition.is_match(&3), true);
 }
@@ -64,7 +64,7 @@ fn contains_condition_test_should_be_true() {
 #[test]
 fn contains_condition_test_should_be_false() {
     let cond_vec = Vec::from([1, 2, 3, 4]);
-    let condition = ContainsCondition::new(&cond_vec);
+    let condition = IteratorContainsCondition::new(&cond_vec);
 
     assert_eq!(condition.is_match(&12), false);
 }
