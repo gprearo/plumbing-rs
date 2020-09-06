@@ -1,18 +1,18 @@
 use std::fs;
 use crate::data::provider::DataProvider;
 
-pub struct TextFileProvider<'a> {
-    path: &'a String
+pub struct TextFileProvider {
+    path: String
 }
 
-impl<'a> TextFileProvider<'a> {
-    pub fn new(path: &'a String) -> TextFileProvider<'a> {
+impl TextFileProvider {
+    pub fn new(path: String) -> TextFileProvider {
         return TextFileProvider{path};
     }
 }
 
-impl<'a> DataProvider<String> for TextFileProvider<'a> {
+impl DataProvider<String> for TextFileProvider {
     fn get_data(&self) -> String {
-        return fs::read_to_string(self.path).expect("Error reading file.");
+        return fs::read_to_string(&self.path).expect("Error reading file.");
     }
 }
