@@ -1,22 +1,26 @@
 
 use crate::data::condition::Condition;
 
-pub struct OrCondition<'a, T> {
-    conditions: &'a Vec<Box<dyn Condition<T>>>
+pub struct OrCondition<T> {
+    conditions: Vec<Box<dyn Condition<T>>>
 }
 
-impl<'a, T> OrCondition<'a, T> {
-    pub fn new(conditions: &'a Vec<Box<dyn Condition<T>>>) -> OrCondition<T> {
+impl<T> OrCondition<T> {
+    pub fn new(conditions: Vec<Box<dyn Condition<T>>>) -> OrCondition<T> {
         return OrCondition{conditions};
     }
 
-    pub fn boxed_new(conditions: &'a Vec<Box<dyn Condition<T>>>) -> Box<OrCondition<T>> {
+    pub fn boxed_new(conditions: Vec<Box<dyn Condition<T>>>) -> Box<OrCondition<T>> {
         return Box::new(OrCondition::new(conditions));
+    }
+
+    fn get_conditions(&self) -> &Vec<Box<dyn Condition<T>>> {
+        return &self.conditions;
     }
 }
 
-impl<'a, T> Condition<T> for OrCondition<'a, T> {
+impl<T> Condition<T> for OrCondition<T> {
     fn is_match(&self, data: &T) -> bool {
-        return self.conditions.into_iter().any(| cond| cond.is_match(data));
+        return self.get_conditions().into_iter().any(| cond| cond.is_match(data));
     }
 }

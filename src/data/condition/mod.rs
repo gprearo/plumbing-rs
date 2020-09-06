@@ -4,7 +4,7 @@ mod greater_than;
 mod less_than;
 mod or;
 mod equals;
-mod iterator_contains;
+mod vector_contains;
 mod hashset_contains;
 
 pub use greater_than::GreaterThanCondition;
@@ -13,5 +13,5 @@ pub use and::AndCondition;
 pub use less_than::LessThanCondition;
 pub use or::OrCondition;
 pub use equals::EqualsCondition;
-pub use iterator_contains::IteratorContainsCondition;
+pub use vector_contains::VectorContainsCondition;
 pub use hashset_contains::HashSetContainsCondition;

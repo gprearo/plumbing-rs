@@ -1,23 +1,23 @@
 use crate::data::condition::Condition;
 use std::cmp::Ord;
 
-pub struct LessThanCondition<'a, T> {
-    value: &'a T
+pub struct LessThanCondition<T> {
+    value: T
 }
 
-impl<'a, T> LessThanCondition<'a, T>{
-    pub fn new(value: &'a T) -> LessThanCondition<'a, T>{
+impl<T> LessThanCondition<T>{
+    pub fn new(value: T) -> LessThanCondition<T>{
         return LessThanCondition{value};
     }
 
-    pub fn boxed_new(value: &'a T) -> Box<LessThanCondition<'a, T>>{
+    pub fn boxed_new(value: T) -> Box<LessThanCondition<T>>{
         return Box::new(LessThanCondition::new(value));
     }
 }
 
-impl<'a, T> Condition<T> for LessThanCondition<'a, T> 
+impl<T> Condition<T> for LessThanCondition<T> 
     where T: Ord {
         fn is_match(&self, data: &T) -> bool{
-            return data < self.value;
+            return *data < self.value;
         }
 }

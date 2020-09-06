@@ -1,3 +1,3 @@
 pub trait Filter<TCollection, TData> {
-    fn filter(&self, data: TCollection) -> TCollection;
+    fn filter(self: Box<Self>, data: TCollection) -> TCollection;
 }
