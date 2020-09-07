@@ -1,4 +1,6 @@
+use chrono::{Utc, Datelike};
 use plumbing::data::property::Property;
+
 pub struct TestData {
     pub name: String,
     pub last_name: String,
@@ -20,7 +22,9 @@ impl Property<TestData, String> for NameProperty {
 }
 #[test]
 fn string_property_test() {
-    let data = TestData {name: String::from("Michael"), last_name: String::from("Jackson"), age: 62};
+    //Added chrono, now you will have the exactly Michael Jackson age, whenever you run this test
+    let michael_age = Utc::now().year() - 1968;
+    let data = TestData {name: String::from("Michael"), last_name: String::from("Jackson"), age: michael_age};
     let name = NameProperty::new();
 
     assert_eq!(name.get_value(&data), "Michael");

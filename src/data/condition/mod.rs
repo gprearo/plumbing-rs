@@ -1,4 +1,4 @@
-mod condition_trait;
+mod condition;
 mod and;
 mod greater_than;
 mod less_than;
@@ -9,7 +9,7 @@ mod hashset_contains;
 mod property_condition;
 
 pub use greater_than::GreaterThanCondition;
-pub use condition_trait::Condition;
+pub use condition::Condition;
 pub use and::AndCondition;
 pub use less_than::LessThanCondition;
 pub use or::OrCondition;
