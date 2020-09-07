@@ -14,7 +14,7 @@ fn main() {
 
     let condition: AndCondition<i32> = AndCondition::new(
                                             Vec::from([GreaterThanCondition::boxed_new(lower_bond),
-                                                                   LessThanCondition::boxed_new(upper_bond) as Box<dyn Condition<i32>>]));
+                                            LessThanCondition::boxed_new(upper_bond) as Box<dyn Condition<i32>>]));
     let filter= BasicFilter::boxed_new(Box::new(condition));
 
     let start = Instant::now();
