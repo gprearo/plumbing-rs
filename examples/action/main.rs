@@ -1,4 +1,5 @@
-use plumbing::action::{Handler, Task};
+use plumbing::action::handler::Handler;
+use plumbing::action::task::Task;
 
 pub struct PrintHandler {}
 
@@ -9,7 +10,7 @@ impl PrintHandler {
 }
 
 impl Handler<String> for PrintHandler {
-    fn handle(&self, data: String) {
+    fn handle(&self, data: &String) {
         print!("{}", data);
     }
 }
@@ -33,6 +34,6 @@ impl Task for StaticPrintTask {
 fn main() {
     let printer = PrintHandler::new();
     let printer_task = StaticPrintTask::new(String::from("Hello, world from task\n"));
-    printer.handle(String::from("Hello, world!\n"));
+    printer.handle(&String::from("Hello, world!\n"));
     printer_task.execute();
 }
