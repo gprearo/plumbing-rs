@@ -15,7 +15,7 @@ fn main() {
     let condition: AndCondition<i32> = AndCondition::new(
                                             Vec::from([GreaterThanCondition::boxed_new(lower_bond),
                                                                    LessThanCondition::boxed_new(upper_bond) as Box<dyn Condition<i32>>]));
-    let filter: Box<dyn Filter<Vec<i32>, i32>> = BasicFilter::boxed_new(Box::new(condition));
+    let filter= BasicFilter::boxed_new(Box::new(condition));
 
     let start = Instant::now();
     let _ = filter.filter(huge_list);
