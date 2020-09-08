@@ -1,7 +1,8 @@
 #[cfg(test)]
 use std::collections::HashSet;
 use plumbing::data::filter::{Filter, BasicFilter};
-use plumbing::data::condition::{Condition, GreaterThanCondition, OrCondition, AndCondition, VectorContainsCondition, HashSetContainsCondition};
+use plumbing::data::condition::{Condition, GreaterThanCondition, OrCondition, AndCondition
+                                , VectorContainsCondition, HashSetContainsCondition, SyncAndCondition};
 use super::{TrueCondition, FalseCondition};
 
 #[test]
@@ -39,6 +40,25 @@ pub fn and_condition_test_should_be_false() {
     let cond2: Box<dyn Condition<i64>> = FalseCondition::boxed_new();
     let cond_vec = Vec::from([cond1, cond2]);
     let condition = AndCondition::new(cond_vec);
+
+    assert_eq!(condition.is_match(&3), false);
+}
+#[test]
+pub fn sync_and_condition_test_should_be_true() {
+    let cond1: Box<dyn Condition<i64> + Sync> = TrueCondition::boxed_new();
+    let cond2: Box<dyn Condition<i64> + Sync> = TrueCondition::boxed_new();
+    let cond_vec = Vec::from([cond1, cond2]);
+    let condition = SyncAndCondition::new(cond_vec);
+
+    assert_eq!(condition.is_match(&3), true);
+}
+
+#[test]
+pub fn sync_and_condition_test_should_be_false() {
+    let cond1: Box<dyn Condition<i64> + Sync> = TrueCondition::boxed_new();
+    let cond2: Box<dyn Condition<i64> + Sync> = FalseCondition::boxed_new();
+    let cond_vec = Vec::from([cond1, cond2]);
+    let condition = SyncAndCondition::new(cond_vec);
 
     assert_eq!(condition.is_match(&3), false);
 }

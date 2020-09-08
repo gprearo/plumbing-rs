@@ -8,6 +8,7 @@ mod vector_contains;
 mod hashset_contains;
 mod property_condition;
 mod contains_string;
+mod sync_and;
 
 pub use greater_than::GreaterThanCondition;
 pub use condition::Condition;
@@ -19,3 +20,4 @@ pub use vector_contains::VectorContainsCondition;
 pub use hashset_contains::HashSetContainsCondition;
 pub use property_condition::PropertyCondition;
 pub use contains_string::ContainsStringCondition;
+pub use sync_and::SyncAndCondition;
