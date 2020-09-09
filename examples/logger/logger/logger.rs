@@ -1,5 +1,5 @@
 use plumbing::action::handler::Handler;
-
+use super::{LogData, LogLevel, Logger};
 
 pub struct StringLogger {
     handler: Box<dyn Handler<LogData<String>>>
