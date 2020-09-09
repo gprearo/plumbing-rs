@@ -9,6 +9,7 @@ mod hashset_contains;
 mod property_condition;
 mod contains_string;
 mod sync_and;
+mod sync_or;
 
 pub use greater_than::GreaterThanCondition;
 pub use condition::Condition;
@@ -21,3 +22,4 @@ pub use hashset_contains::HashSetContainsCondition;
 pub use property_condition::PropertyCondition;
 pub use contains_string::ContainsStringCondition;
 pub use sync_and::SyncAndCondition;
+pub use sync_or::SyncOrCondition;

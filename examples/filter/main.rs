@@ -11,7 +11,6 @@ fn main() {
     let lower_bond = rng.gen_range(0, N-1);
     let upper_bond = rng.gen_range(lower_bond, N);
 
-
     let greater_cond: Box<dyn Condition<i32> + Sync> = GreaterThanCondition::boxed_new(lower_bond);
     let less_cond: Box<dyn Condition<i32> + Sync> = LessThanCondition::boxed_new(upper_bond);
     let condition: Box<dyn Condition<i32> + Sync> = SyncAndCondition::boxed_new(
