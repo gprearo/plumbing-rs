@@ -17,7 +17,7 @@ pub enum LogLevel {
     Warn,
     Error
 }
-//Use a generics, never knows... Maybe we can have a json impl
+//It uses a generics, never knows... Maybe we can have a json impl
 pub trait Logger<T> {
     fn log(&self, level: LogLevel, data: T);
 }
