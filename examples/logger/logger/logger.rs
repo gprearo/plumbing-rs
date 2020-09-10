@@ -1,19 +1,20 @@
-use plumbing::action::handler::Handler;
-use super::{LogData, LogLevel, Logger};
-
-pub struct StringLogger {
-    handler: Box<dyn Handler<LogData<String>>>
+pub enum LogLevel {
+    Trace,
+    Info,
+    Warn,
+    Error
+}
+//Use a generics, never knows... Maybe we can have a json impl
+pub trait Logger<T> {
+    fn log(&self, level: LogLevel, data: T);
+}
+pub struct LogData<T> {
+    pub level: LogLevel,
+    pub data: T
 }
 
-impl StringLogger {
-    pub fn new(handler: Box<dyn Handler<LogData<String>>>) -> StringLogger {
-        return StringLogger{handler};
+impl<T> LogData<T> {
+    pub fn new(level: LogLevel, data: T) -> LogData<T> {
+        return LogData{level, data};
     }
 }
-
-
-impl Logger<String> for StringLogger {
-    fn log(&self, level: LogLevel, data: String){
-        self.handler.handle(&LogData::new(level, data));
-    }
-} 

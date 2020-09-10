@@ -12,3 +12,4 @@ rayon = "1.4.0"
 [dev-dependencies]
 chrono = "0.4.15"
 rand = "0.7.3"
+paris = "1.5.7"
