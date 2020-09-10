@@ -46,12 +46,9 @@ impl Logger<String> for StringLogger {
 }
 ```
 
-What I did is to receive a Handler on construction, this handler will be responsible to actually  
-log and it is a feature of plumbing crate.
+What I did is to receive a Handler on construction, this handler will be responsible to actually log and it is a feature of plumbing crate.
 
-This allow us to build this handler with a variety of tools. We can use LinearHandlers or ParallelHandler  
-to execute more than one handler, like a handler to log on screen and other to save in a file, each one  
-with its particularities.
+This allow us to build this handler with a variety of tools. We can use LinearHandlers or ParallelHandler to execute more than one handler, like a handler to log on screen and other to save in a file, each one with its particularities.
 
 That is exactly what I will do, I will make a factory for our Logger that puts two handler togheter.
 
@@ -69,8 +66,7 @@ impl App1LoggerFactory {
 }
 ``` 
 
-Here I crate a FileLogger to save our entries on `log.txt`, a ConsoleLogger to print it on screen and then a ParallelHandlers,  
-to bring those two together.
+Here I crate a FileLogger to save our entries on `log.txt`, a ConsoleLogger to print it on screen and then a ParallelHandlers, to bring those two together.
 
 Now let's see how the main function would be.
 
