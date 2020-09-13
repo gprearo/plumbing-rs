@@ -4,3 +4,4 @@ pub mod condition;
 pub mod conversion;
 pub mod repository;
 pub mod property;
+pub mod aggregation;
