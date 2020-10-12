@@ -15,6 +15,8 @@ impl<TStruct, TProperty> PropertyCondition<TStruct, TProperty> {
 
 impl<TStruct, TProperty> Condition<TStruct> for PropertyCondition<TStruct, TProperty> {
     fn is_match(&self, data: &TStruct) -> bool {
-        return self.condition.is_match(self.property.get_value(data));
+        let property: &TProperty = &self.property.get_value(data);
+        let cond_result =  self.condition.is_match(property);
+        return cond_result;
     }
 }

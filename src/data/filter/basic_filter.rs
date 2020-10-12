@@ -6,7 +6,7 @@ pub struct BasicFilter<T> {
     condition: Box<dyn Condition<T>>
 }
 
-impl<T> BasicFilter<T> {
+impl<'a, T> BasicFilter<T> {
     pub fn new(condition: Box<dyn Condition<T>>) -> BasicFilter<T> {
         return BasicFilter {condition: condition};
     }

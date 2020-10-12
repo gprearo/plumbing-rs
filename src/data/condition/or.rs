@@ -5,7 +5,7 @@ pub struct OrCondition<T> {
     conditions: Vec<Box<dyn Condition<T>>>
 }
 
-impl<T> OrCondition<T> {
+impl<'a, T> OrCondition<T> {
     pub fn new(conditions: Vec<Box<dyn Condition<T>>>) -> OrCondition<T> {
         return OrCondition{conditions};
     }

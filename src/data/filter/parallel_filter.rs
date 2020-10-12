@@ -20,6 +20,6 @@ impl<T> ParallelFilter<T> {
 impl<T> Filter<Vec<T>, T> for ParallelFilter<T> 
     where T: Sync + Send {
     fn filter(self: Box<Self>, data: Vec<T>) -> Vec<T> {
-        return data.into_par_iter().filter(|item| self.condition.is_match(item)).collect();
+        return data.into_par_iter().filter(|item| self.condition.is_match(item )).collect();
     }
 }

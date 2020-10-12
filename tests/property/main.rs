@@ -16,8 +16,8 @@ impl NameProperty{
 }
 
 impl Property<TestData, String> for NameProperty {
-    fn get_value<'a>(&self, data: &'a TestData) -> &'a String {
-        return &data.name;
+    fn get_value(&self, data: &TestData) -> String{
+        return data.name.clone();
     }
 }
 #[test]

@@ -14,13 +14,13 @@ impl<TKey, TElem> VectorAggregation<TKey, TElem> {
 }
 
 impl<TKey, TElem> Aggregation<Vec<TElem>, TKey, TElem> for VectorAggregation<TKey, TElem> 
-    where TKey: Eq + Hash + Copy{
+    where TKey: Eq + Hash + Clone {
     fn aggregate(&self, collection: Vec<TElem>) -> HashMap<TKey, Vec<TElem>> {
         let mut aggregation: HashMap<TKey, Vec<TElem>> = HashMap::new();
         for elem in collection {
-            let elem_key: &TKey  = self.key_property.get_value(&elem);
+            let elem_key: &TKey  = &self.key_property.get_value(&elem);
             if !aggregation.contains_key(elem_key) {
-                aggregation.insert(*elem_key, Vec::new());
+                aggregation.insert((*elem_key).clone(), Vec::new());
             }
 
             if let Some(vector) = aggregation.get_mut(elem_key) {

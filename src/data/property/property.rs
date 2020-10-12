@@ -1,3 +1,3 @@
 pub trait Property<TStruct, TProperty> {
-    fn get_value<'a>(&self, data: &'a TStruct) -> &'a TProperty;
+    fn get_value(&self, data: &TStruct) -> TProperty;
 }
