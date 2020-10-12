@@ -1,4 +1,6 @@
 use plumbing::data::property::Property;
+
+#[derive(Clone, PartialEq)]
 pub struct TestData {
     key1: isize,
     key2: String,
