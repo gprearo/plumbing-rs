@@ -1,3 +1,4 @@
+#[cfg(test)]
 use plumbing::data::condition::Condition;
 
 pub struct TrueCondition {}

@@ -1,3 +1,4 @@
+#[cfg(test)]
 use std::io::prelude::*;
 use std::fs::File;
 use std::fs;

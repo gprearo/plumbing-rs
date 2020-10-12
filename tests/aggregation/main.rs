@@ -1,3 +1,4 @@
+#[cfg(test)]
 mod test_data;
 use test_data::{TestData, KeyProperty, TestKey};
 use plumbing::data::aggregation::{Aggregation, VectorAggregation};

@@ -1,3 +1,4 @@
+#[cfg(test)]
 use plumbing::data::property::Property;
 
 #[derive(Clone, PartialEq)]

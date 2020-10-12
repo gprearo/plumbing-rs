@@ -1,3 +1,4 @@
+#[cfg(test)]
 mod always_true;
 mod always_false;
 
