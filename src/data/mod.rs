@@ -5,3 +5,4 @@ pub mod conversion;
 pub mod repository;
 pub mod property;
 pub mod aggregation;
+pub mod merge;
