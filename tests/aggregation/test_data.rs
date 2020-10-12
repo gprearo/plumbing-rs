@@ -28,3 +28,11 @@ impl Property<TestData, TestKey> for KeyProperty {
         return TestKey{key1: data.key1, key2: data.key2.clone()};
     }
 }
+
+pub struct ValueProperty;
+
+impl Property<TestData, f64> for ValueProperty {
+    fn get_value(&self, data: &TestData) -> f64 {
+        return data.value;
+    }
+}
